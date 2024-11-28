@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'character/cyberpunk.css' %}">
+    <title>Shard Details</title>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        text-align: center;
+        max-width: 60%;
+    }    
+</style>
+<body>
+    <div class="container">
+    <h2 class="cyberpunk">Shard {{ shard.id }}</h2>
+    <p class="cyberpunk inverse dotted scannedh" style="max-width: 500;">{{ shard.text|safe }}</p>
+</div>
+</body>
+</html>
