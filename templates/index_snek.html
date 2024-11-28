@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake Multiplayer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script type="text/javascript">
+        var socket = io();
+
+        socket.on('game_state', function(data) {
+            var gameState = JSON.parse(data);
+            console.log(gameState);  // You could use this to update a web-based game view
+        });
+
+        function updateDirection(snake, direction) {
+            socket.emit('update_direction', { 'snake': snake, 'direction': direction });
+        }
+    </script>
+</head>
+<body>
+    <h1>Snake Multiplayer Game</h1>
+    <button onclick="updateDirection('snake1', { 'dx': 0, 'dy': -1 })">Up Snake 1</button>
+    <button onclick="updateDirection('snake1', { 'dx': 0, 'dy': 1 })">Down Snake 1</button>
+    <button onclick="updateDirection('snake1', { 'dx': -1, 'dy': 0 })">Left Snake 1</button>
+    <button onclick="updateDirection('snake1', { 'dx': 1, 'dy': 0 })">Right Snake 1</button>
+
+    <button onclick="updateDirection('snake2', { 'dx': 0, 'dy': -1 })">Up Snake 2</button>
+    <button onclick="updateDirection('snake2', { 'dx': 0, 'dy': 1 })">Down Snake 2</button>
+    <button onclick="updateDirection('snake2', { 'dx': -1, 'dy': 0 })">Left Snake 2</button>
+    <button onclick="updateDirection('snake2', { 'dx': 1, 'dy': 0 })">Right Snake 2</button>
+</body>
+</html>

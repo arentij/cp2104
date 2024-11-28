@@ -1,0 +1,4 @@
+<div class="content">
+    <h1>Mission Brief - Stage 1</h1>
+    <p>Agent 007, your first mission is to infiltrate the corporate headquarters...</p>
+</div>

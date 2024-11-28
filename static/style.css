@@ -1,0 +1,266 @@
+/* static/style.css */
+:root {
+    --neon-yellow: #FFD300;
+    --neon-purple: #B026FF;
+    --neon-red: #FF2D55;
+    --dark-bg: #0a0a0f;
+    --darker-bg: #050507;
+    --glow-yellow: 0 0 10px #FFD300, 0 0 20px #FFD300, 0 0 30px #FFD300;
+    --glow-purple: 0 0 10px #B026FF, 0 0 20px #B026FF, 0 0 30px #B026FF;
+    --glow-red: 0 0 10px #FF2D55, 0 0 20px #FF2D55, 0 0 30px #FF2D55;
+}
+
+@keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+        opacity: 1;
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+        opacity: 0.4;
+    }
+}
+
+@keyframes glitch {
+    0% {
+        clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+    }
+    20% {
+        clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%);
+    }
+    40% {
+        clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%);
+    }
+    60% {
+        clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%);
+    }
+    80% {
+        clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%);
+    }
+    100% {
+        clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%);
+    }
+}
+
+body {
+    font-family: 'Rajdhani', 'Orbitron', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark-bg);
+    color: #fff;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 45%, var(--neon-purple) 45%, transparent 55%),
+        linear-gradient(-45deg, transparent 45%, var(--neon-red) 45%, transparent 55%);
+    background-size: 3px 3px;
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: -1;
+}
+
+nav {
+    background-color: var(--darker-bg);
+    padding: 1em;
+    text-align: center;
+    border-bottom: 2px solid var(--neon-yellow);
+    box-shadow: 0 2px 15px rgba(255, 211, 0, 0.3);
+    position: relative;
+}
+
+nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--neon-yellow);
+    animation: flicker 3s infinite;
+}
+
+nav a {
+    color: var(--neon-yellow);
+    text-decoration: none;
+    padding: 0.5em 1em;
+    margin: 0 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    text-shadow: var(--glow-yellow);
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--neon-yellow);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+nav a:hover::before {
+    transform: scaleX(1);
+}
+
+.container {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: rgba(10, 10, 15, 0.8);
+    border: 1px solid var(--neon-purple);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(176, 38, 255, 0.2);
+    position: relative;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--neon-purple), var(--neon-red));
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0.3;
+}
+
+h1 {
+    color: var(--neon-yellow);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: var(--glow-yellow);
+    margin-bottom: 1em;
+    position: relative;
+    animation: flicker 5s infinite;
+}
+
+.alert {
+    background-color: rgba(255, 45, 85, 0.2);
+    color: var(--neon-red);
+    padding: 1em;
+    margin: 1em 0;
+    border: 1px solid var(--neon-red);
+    border-radius: 3px;
+    text-shadow: var(--glow-red);
+}
+
+form {
+    margin: 2em 0;
+}
+
+input {
+    padding: 0.8em;
+    font-size: 1.2em;
+    margin-right: 1em;
+    background: rgba(10, 10, 15, 0.8);
+    border: 1px solid var(--neon-purple);
+    color: var(--neon-yellow);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--neon-yellow);
+    box-shadow: var(--glow-yellow);
+}
+
+button {
+    padding: 0.8em 1.5em;
+    background: transparent;
+    color: var(--neon-purple);
+    border: 1px solid var(--neon-purple);
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    color: var(--darker-bg);
+    background: var(--neon-purple);
+    box-shadow: var(--glow-purple);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin: 1em 0;
+    border: 1px solid var(--neon-purple);
+    box-shadow: 0 0 20px rgba(176, 38, 255, 0.3);
+}
+
+.character-content {
+    margin: 2em 0;
+    line-height: 1.8;
+    padding: 1em;
+    background: rgba(10, 10, 15, 0.5);
+    border-left: 3px solid var(--neon-yellow);
+}
+
+/* Add cyberpunk-style scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--darker-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neon-purple);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-yellow);
+}
+
+/* Add glitch effect for error messages */
+.error-message {
+    color: var(--neon-red);
+    text-shadow: var(--glow-red);
+    position: relative;
+    animation: glitch 1s infinite;
+}

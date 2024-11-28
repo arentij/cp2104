@@ -1,0 +1,87 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Party Game Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('news') }}">News</a>
+        <a href="{{ url_for('characters') }}">Characters</a>
+        <a href="{{ url_for('faq') }}">FAQ</a>
+    </nav>
+    <div class="container">
+        <h1>Welcome to the Game Portal</h1>
+        <p>Choose your destination from the navigation menu above.</p>
+    </div>
+</body>
+</html>
+
+<!-- templates/character_code.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ name }} - Access Code Required</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Access Code for {{ name }}</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <input type="text" name="code" maxlength="4" pattern="\d{4}" required>
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{{ url_for('characters') }}">Back to Characters</a>
+    </div>
+</body>
+</html>
+
+<!-- templates/character_content.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ name }}</h1>
+        {% if image %}
+            <img src="{{ url_for('static', filename=image) }}" alt="{{ name }}">
+        {% endif %}
+        <div class="character-content">
+            {{ content|safe }}
+        </div>
+        <a href="{{ url_for('characters') }}">Back to Characters</a>
+    </div>
+</body>
+</html>
+
+<!-- templates/admin_panel.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <p>Current Phase: {{ current_phase }}</p>
+        <form method="POST">
+            <label for="phase">Set Game Phase:</label>
+            <input type="number" name="phase" min="1" value="{{ current_phase }}" required>
+            <button type="submit">Update Phase</button>
+        </form>
+    </div>
+</body>
+</html>
