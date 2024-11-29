@@ -8,9 +8,12 @@ import base64
 
 # Create your views here.
 
+
 def shard_detail(request, shard_uuid):
     shard = get_object_or_404(Shard, uuid=shard_uuid)
-    if shard.password:
+    if request.user.is_authenticated and request.user.is_staff:
+        return render(request, 'shard_detail.html', {'shard': shard})
+    elif shard.password:
         if request.method == 'POST':
             entered_password = request.POST.get('password')
             if entered_password == shard.password:
