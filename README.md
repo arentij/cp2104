@@ -11,6 +11,7 @@ $ source bin/activate
 
 then go to the root of git repo and do
 ```
+$ pip install -r requirements.txt
 $ ./manage.py runserver
 ```
 
