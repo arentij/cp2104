@@ -4,16 +4,16 @@ from .models import Shard
 
 # Create your views here.
 
-def shard_detail(request, shard_id):
-    shard = get_object_or_404(Shard, id=shard_id)
+def shard_detail(request, shard_uuid):
+    shard = get_object_or_404(Shard, uuid=shard_uuid)
     if shard.password:
         if request.method == 'POST':
             entered_password = request.POST.get('password')
             if entered_password == shard.password:
                 return render(request, 'shard_detail.html', {'shard': shard})
             else:
-                return render(request, 'password_prompt.html', {'shard_id': shard_id, 'error': 'Incorrect password'})
+                return render(request, 'password_prompt.html', {'shard_uuid': shard_uuid, 'error': 'Incorrect password'})
         else:
-            return render(request, 'password_prompt.html', {'shard_id': shard_id})
+            return render(request, 'password_prompt.html', {'shard_uuid': shard_uuid})
     else:
         return render(request, 'shard_detail.html', {'shard': shard})

@@ -19,9 +19,8 @@ from django.urls import include, path
 from shards import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-
 urlpatterns = [
-    path('shard/<int:shard_id>/', views.shard_detail, name='shard_detail'),
+    path('shard/<uuid:shard_uuid>/', views.shard_detail, name='shard_detail'),
     path('admin/', admin.site.urls),
 ]
 

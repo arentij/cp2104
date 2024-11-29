@@ -6,5 +6,5 @@ from .models import Shard
 
 @admin.register(Shard)
 class ShardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'text', 'password')
-    search_fields = ('text',)
+    list_display = ('id', 'name', 'uuid', 'text', 'password')
+    search_fields = ('name', 'text')
