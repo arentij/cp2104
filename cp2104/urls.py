@@ -21,7 +21,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('shard/<uuid:shard_uuid>/', views.shard_detail, name='shard_detail'),
-    path('shards/', views.shard_list, name='shard_list'),
+    path('shard_list/', views.shard_list, name='shard_list'),
     path('admin/', admin.site.urls),
 ]
 
