@@ -24,6 +24,7 @@ urlpatterns = [
     path('shard_list/', views.shard_list, name='shard_list'),
     path('admin/', admin.site.urls),
     path('', include('sim.urls')),
+    path('', include('character.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
