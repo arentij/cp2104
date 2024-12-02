@@ -15,6 +15,6 @@ class CharacterAdmin(admin.ModelAdmin):
 
 @admin.register(Lore)
 class LoreAdmin(admin.ModelAdmin):
-    list_display = ('title', 'character', 'game_phase')
-    list_filter = ('game_phase', 'visible_to_groups')
-    filter_horizontal = ('visible_to_groups',)
+    list_display = ('title', 'character')
+    list_filter = ('game_phases', 'visible_to_groups')
+    filter_horizontal = ('game_phases', 'visible_to_groups',)

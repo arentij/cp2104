@@ -27,7 +27,7 @@ class Lore(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='lores')
     title = models.CharField(max_length=200)
     content = models.TextField()
-    game_phase = models.ForeignKey(GamePhase, on_delete=models.CASCADE)
+    game_phases = models.ManyToManyField(GamePhase)
     visible_to_groups = models.ManyToManyField(Group)
 
     def __str__(self):
