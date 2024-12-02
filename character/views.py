@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from .models import Character, CurrentGamePhase, Lore
 
 @login_required
@@ -32,3 +34,29 @@ def character_page(request, character_id):
     }
 
     return render(request, 'character_page.html', context)
+
+def custom_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('character_page', character_id=1)  # Redirect to a default character page
+    else:
+        form = AuthenticationForm()
+
+    context = {'form': form}
+    if request.user.is_authenticated:
+        context['username'] = request.user.username
+    return render(request, 'login.html', context)
+
+@login_required
+def custom_logout(request):
+    logout(request)
+    return render(request, 'logout.html')
+
+def toc(request):
+    return render(request, 'index.html')
