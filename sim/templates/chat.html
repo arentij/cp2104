@@ -26,20 +26,20 @@
     <br>
 
     <form x-cloak
-          @submit.prevent="submit" x-data="{state: 'composing', errors: {}}">
-        <div>
-            <textarea class="cyberpunk" name="content" @input="state = 'composing'" autofocus placeholder="Your next message..."></textarea>
-            <button class="cyberpunk green">
-                Send
-            </button>
-        </div>
+    @submit.prevent="submit" x-data="{ state: 'composing', errors: {}, content: '' }">
+  <div>
+      <textarea class="cyberpunk" name="content" @input="state = 'composing'" x-model="content" autofocus placeholder="Your next message..."></textarea>
+      <button class="cyberpunk green">
+          Send
+      </button>
+  </div>
 
-        <div x-show="state === 'error'">
-            <p>
-                Error sending your message ❌
-            </p>
-        </div>
-    </form>
+  <div x-show="state === 'error'">
+      <p>
+          Error sending your message ❌
+      </p>
+  </div>
+</form>
 
     <form action="/lobby/" method="get">
         <button class="cyberpunk purple" type="submit">Return to Lobby</button>
@@ -85,7 +85,12 @@
             },
         })
             .then(response => {
-                this.state = response.ok ? 'success' : 'error';
+                if (response.ok) {
+                    this.state = 'success';
+                    this.content = ''; // Clear textarea content after successful submission
+                } else {
+                    this.state = 'error';
+                }
                 return response.json();
             })
             .then(data => {
