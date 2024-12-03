@@ -8,13 +8,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'shards/cyberpunk.css' %}">    
 </head>
 <body>
-    <div class="container" style="margin: 5%;">
+    <div class="container" style="margin: 2%;">
         <header class="my-4">
             <h1 class="cyberpunk glitched">{{ character.name }}</h1>
             <p class="cyberpunk">{{ character.description|safe }}</p>
         </header>
         <h2 class="cyberpunk">Lore</h2>
-        <section class="cyberpunk black both">
+        <section class="cyberpunk black">
             <div class="boxtree">
             {% if visible_lore %}
             
