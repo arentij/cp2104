@@ -4,29 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ character.name }} - Character Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shards/cyberpunk.css' %}">    
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="margin: 5%;">
         <header class="my-4">
-            <h1>{{ character.name }}</h1>
-            <p>{{ character.description }}</p>
+            <h1 class="cyberpunk glitched">{{ character.name }}</h1>
+            <p class="cyberpunk">{{ character.description|safe }}</p>
         </header>
-
-        <section>
-            <h2>Lore</h2>
+        <h2 class="cyberpunk">Lore</h2>
+        <section class="cyberpunk black both">
+            <div class="boxtree">
             {% if visible_lore %}
-                <ul class="list-group mb-4">
+            
                     {% for lore in visible_lore %}
-                        <li class="list-group-item">
+                        <div class="children1 width1">
                             <h3>{{ lore.title }}</h3>
-                            <p>{{ lore.content }}</p>
-                        </li>
+                            <p>{{ lore.content|safe }}</p>
+                        </div>
+
                     {% endfor %}
-                </ul>
             {% else %}
                 <p class="alert alert-info">No lore available for your group at this time.</p>
             {% endif %}
+        </div>
         </section>
     </div>
 
