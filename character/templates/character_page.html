@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ character.name }} - Character Page</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shards/cyberpunk.css' %}">    
+</head>
+<body>
+    <div class="container" style="margin: 2%;">
+        <header class="my-4">
+            <h1 class="cyberpunk glitched">{{ character.name }}</h1>
+            <p class="cyberpunk">{{ character.description|safe }}</p>
+        </header>
+        <h2 class="cyberpunk">Lore</h2>
+        <section class="cyberpunk black">
+            <div class="boxtree">
+            {% if visible_lore %}
+            
+                    {% for lore in visible_lore %}
+                        <div class="children1 width1">
+                            <h3>{{ lore.title }}</h3>
+                            <p>{{ lore.content|safe }}</p>
+                        </div>
+
+                    {% endfor %}
+            {% else %}
+                <p class="alert alert-info">No lore available for your group at this time.</p>
+            {% endif %}
+        </div>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

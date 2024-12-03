@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Index Page</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{% url 'login' %}">Login</a></li>
+            <li class="list-group-item"><a href="{% url 'logout' %}">Logout</a></li>
+            <li class="list-group-item"><a href="{% url 'character_page' character_id=1 %}">Character Page</a></li>
+            <li class="list-group-item"><a href="{% url 'shard_list' %}">Shard List</a></li>
+            <li class="list-group-item"><a href="{% url 'admin:index' %}">Admin</a></li>
+            <li class="list-group-item"><a href="{% url 'lobby' %}">Lobby</a></li>
+            <li class="list-group-item"><a href="{% url 'chat' %}">Chat</a></li>
+            <li class="list-group-item"><a href="{% url 'create-message' %}">Create Message</a></li>
+            <li class="list-group-item"><a href="{% url 'stream-chat-messages' %}">Stream Chat Messages</a></li>
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
