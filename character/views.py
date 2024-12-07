@@ -21,7 +21,6 @@ def character_page(request, short_name):
         user_groups = request.user.groups.all()
 
     if current_phase:
-        # Get the lore entries for the character visible to the user's groups and current game phase
         visible_lore = Lore.objects.filter(
             character=character,
             game_phases=current_phase,
@@ -30,27 +29,16 @@ def character_page(request, short_name):
     else:
         visible_lore = Lore.objects.none()
 
-    # Handle notes
-    if request.method == 'POST':
-        note_form = CharacterNoteForm(request.POST)
-        if note_form.is_valid():
-            note = note_form.save(commit=False)
-            note.character = character
-            note.user = request.user
-            note.save()
-            messages.success(request, "Your note was added!")
-            return redirect('character_page', character_id=character_id)
-    else:
-        note_form = CharacterNoteForm()
-
-    notes = character.notes.filter(user=request.user).order_by('-created_at')
+    # Determine if notes should be shown
+    show_notes = request.user in character.users.all()
 
     context = {
         'character': character,
         'visible_lore': visible_lore,
-        'note_form': note_form,
-        'notes': notes,
+        'show_notes': show_notes
     }
+
+    return render(request, 'character_page.html', context)
 
     return render(request, 'character_page.html', context)
 

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 import random
 import string
 
@@ -22,14 +23,17 @@ class Character(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     short_name = models.CharField(max_length=4, unique=True, blank=True)
+    users = models.ManyToManyField(User, related_name='characters', blank=True)  # New field
 
     def save(self, *args, **kwargs):
         if not self.short_name:
             self.short_name = self.generate_short_name()
-        super().save(*args, **kwargs)    
+        super().save(*args, **kwargs)
 
     @staticmethod
     def generate_short_name():
+        import random
+        import string
         while True:
             short_name = ''.join(random.choices(string.ascii_letters, k=4))
             if not Character.objects.filter(short_name=short_name).exists():

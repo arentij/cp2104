@@ -12,7 +12,9 @@ class CurrentGamePhaseAdmin(admin.ModelAdmin):
 
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'short_name')
+    search_fields = ('name', 'short_name')
+    filter_horizontal = ('users',)  # Allow selection of users in the admin interface
 
 @admin.register(Lore)
 class LoreAdmin(admin.ModelAdmin):
