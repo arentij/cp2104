@@ -45,8 +45,8 @@
             {% endfor %}
         </ul>
     
-        <h3 class=""cyberpunk">Add a Note</h3>
-        <form method="post" class="cyberpunk">
+        <h3 class="cyberpunk">Add a Note</h3>
+        <form method="post" style="cyberpunk">
             {% csrf_token %}
             {{ note_form.as_p }}
             <button type="submit" class="cyberpunk">Add Note</button>
@@ -55,9 +55,9 @@
     {% else %}
     <div class="cyberpunk">
         <div class="boxtree">
-        <div class="pending children0 width1" style="--pending-text: 'FORBIDDEN';">
-        <h2 class="cyberpunk">Notes</h2>
-        </div>
+            <div class="pending children0 width1" style="--pending-text: 'FORBIDDEN';">
+                <h2 class="cyberpunk">Notes</h2>
+            </div>
         </div>
     </div>    
     {% endif %}
