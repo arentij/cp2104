@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import GamePhase, CurrentGamePhase, Character, Lore
+from .models import Character, Lore, GamePhase, CurrentGamePhase, CharacterNote
+
 
 @admin.register(GamePhase)
 class GamePhaseAdmin(admin.ModelAdmin):
@@ -18,3 +19,12 @@ class LoreAdmin(admin.ModelAdmin):
     list_display = ('title', 'character')
     list_filter = ('game_phases', 'visible_to_groups')
     filter_horizontal = ('game_phases', 'visible_to_groups',)
+
+# Register CharacterNote with custom admin
+class CharacterNoteAdmin(admin.ModelAdmin):
+    list_display = ('character', 'user', 'content', 'created_at')  # Display these fields in the list view
+    list_filter = ('character', 'user', 'created_at')  # Filters in the sidebar
+    search_fields = ('content', 'character__name', 'user__username')  # Add search functionality
+    ordering = ('-created_at',)  # Order by creation date, newest first
+
+admin.site.register(CharacterNote, CharacterNoteAdmin)
