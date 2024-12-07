@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shards/cyberpunk.css' %}">        
+</head>
+<body class="cyberpunk">
+    <h1>Character List</h1>
+    <ul>
+        {% for character in characters %}
+            <li>
+                <a href="/data/{{ character.id }}/">{{ character.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
