@@ -54,6 +54,13 @@ def character_page(request, character_id):
 
     return render(request, 'character_page.html', context)
 
+def character_list(request):
+    characters = Character.objects.all()  # Retrieve all characters
+    context = {
+        'characters': characters
+    }
+    return render(request, 'character_list.html', context)
+
 def custom_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
