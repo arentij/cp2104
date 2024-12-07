@@ -58,7 +58,7 @@ def custom_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('character_page', character_id=1)  # Redirect to a default character page
+                return redirect('character_page', short_name='main')  # Redirect to a default character page
     else:
         form = AuthenticationForm()
 
