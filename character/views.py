@@ -29,16 +29,30 @@ def character_page(request, short_name):
     else:
         visible_lore = Lore.objects.none()
 
+    # Handle note form
+    if request.method == 'POST':
+        note_form = CharacterNoteForm(request.POST)
+        if note_form.is_valid():
+            note = note_form.save(commit=False)
+            note.character = character
+            note.user = request.user
+            note.save()
+            messages.success(request, "Your note was added!")
+            return redirect('character_page', short_name=short_name)
+    else:
+        note_form = CharacterNoteForm()
+
     # Determine if notes should be shown
     show_notes = request.user in character.users.all()
+    notes = character.notes.filter(user=request.user).order_by('-created_at') if show_notes else None
 
     context = {
         'character': character,
         'visible_lore': visible_lore,
-        'show_notes': show_notes
+        'show_notes': show_notes,
+        'notes': notes,
+        'note_form': note_form,
     }
-
-    return render(request, 'character_page.html', context)
 
     return render(request, 'character_page.html', context)
 
