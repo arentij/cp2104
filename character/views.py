@@ -8,8 +8,8 @@ from .forms import CharacterNoteForm
 from django.contrib import messages
 
 @login_required
-def character_page(request, character_id):
-    character = get_object_or_404(Character, id=character_id)
+def character_page(request, short_name):
+    character = get_object_or_404(Character, short_name=short_name)
     user_groups = request.user.groups.all()
     current_phase_instance = CurrentGamePhase.objects.first()
     current_phase = current_phase_instance.current_phase if current_phase_instance else None

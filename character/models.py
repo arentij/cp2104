@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
+import random
+import string
 
 class GamePhase(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -19,6 +21,19 @@ class CurrentGamePhase(models.Model):
 class Character(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    short_name = models.CharField(max_length=4, unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.short_name:
+            self.short_name = self.generate_short_name()
+        super().save(*args, **kwargs)    
+
+    @staticmethod
+    def generate_short_name():
+        while True:
+            short_name = ''.join(random.choices(string.ascii_letters, k=4))
+            if not Character.objects.filter(short_name=short_name).exists():
+                return short_name
 
     def __str__(self):
         return self.name
