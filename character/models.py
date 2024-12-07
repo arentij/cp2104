@@ -40,3 +40,12 @@ def create_common_group(sender, **kwargs):
         common_group, created = Group.objects.get_or_create(name='Common')
         if created:
             print("'Common' group created.")
+
+class CharacterNote(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='notes')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Note by {self.user.username} on {self.character.name}"

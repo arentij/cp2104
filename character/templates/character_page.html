@@ -32,6 +32,26 @@
         </section>
     </div>
 
+    <div class="cyberpunk">
+        <h2 class="cyberpunk">Notes</h2>
+        <ul class="cyberpunk">
+            {% for note in notes %}
+            <li class="cyberpunk">
+                <strong>{{ note.created_at|date:"M d, Y H:i" }}:</strong> {{ note.content }}
+            </li>
+            {% empty %}
+            <li class="cyberpunk">No notes yet.</li>
+            {% endfor %}
+        </ul>
+    
+        <h3 class=""cyberpunk">Add a Note</h3>
+        <form method="post" class="cyberpunk">
+            {% csrf_token %}
+            {{ note_form.as_p }}
+            <button type="submit" class="cyberpunk">Add Note</button>
+        </form>
+    </div>    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

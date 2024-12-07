@@ -4,6 +4,8 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Character, CurrentGamePhase, Lore
+from .forms import CharacterNoteForm
+from django.contrib import messages
 
 @login_required
 def character_page(request, character_id):
@@ -28,9 +30,26 @@ def character_page(request, character_id):
     else:
         visible_lore = Lore.objects.none()
 
+    # Handle notes
+    if request.method == 'POST':
+        note_form = CharacterNoteForm(request.POST)
+        if note_form.is_valid():
+            note = note_form.save(commit=False)
+            note.character = character
+            note.user = request.user
+            note.save()
+            messages.success(request, "Your note was added!")
+            return redirect('character_page', character_id=character_id)
+    else:
+        note_form = CharacterNoteForm()
+
+    notes = character.notes.filter(user=request.user).order_by('-created_at')
+
     context = {
         'character': character,
-        'visible_lore': visible_lore
+        'visible_lore': visible_lore,
+        'note_form': note_form,
+        'notes': notes,
     }
 
     return render(request, 'character_page.html', context)
